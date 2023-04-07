@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const usersList = ["bobesponja", "bc"];
+const usersList = [];
 const usersTweets = [];
 
 app.post("/sign-up", (req, res) => {
@@ -23,23 +23,23 @@ app.post("/tweets", (req, res) => {
         return res.status(401).send("UNAUTHORIZED");
     }
 
-    const newTweet = { id: usersTweets.length + 1, username, tweet };
+    const newTweet = { username, avatar: isLogged.avatar, tweet };
     usersTweets.push(newTweet);
+    console.log(usersTweets);
     res.status(201).send("OK");
 });
 
 
+app.get("/tweets", (req, res) => {
+    const tweetsToSend = [...usersTweets];
 
+    const maxLength = 10;
+    if (tweetsToSend.length > maxLength) {
+        tweetsToSend.length = 10;
+    }
 
+    res.status(200).send(tweetsToSend);
 
-app.get("/", (req, res) => {
-    const tryOut = { trial: "first", time: 1 };
-    res.send(tryOut);
-});
-
-app.get("/lista-testes", (req, res) => {
-    const trials = [{ trial: "first", time: 1 }, { trial: "Second", idade: 2 }];
-    res.send(trials);
 });
 
 app.listen(5000, () => console.log("Server is running on port 5000, berk!"));
