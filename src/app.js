@@ -33,12 +33,7 @@ app.post("/tweets", (req, res) => {
 app.get("/tweets", (req, res) => {
     const tweetsToSend = [...usersTweets];
 
-    const maxLength = 10;
-    if (tweetsToSend.length > maxLength) {
-        tweetsToSend.length = 10;
-    }
-
-    res.status(200).send(tweetsToSend);
+    res.status(200).send(tweetsToSend.slice(Math.max(tweetsToSend.length - 10, 0)));
 
 });
 
