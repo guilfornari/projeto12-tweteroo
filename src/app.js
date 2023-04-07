@@ -12,7 +12,7 @@ app.post("/signup", (req, res) => {
     const { username, avatar } = req.body;
     const newUser = { username, avatar };
     usersList.push(newUser);
-    res.send("OK");
+    res.status(201).send("OK");
 });
 
 app.get("/", (req, res) => {
