@@ -5,7 +5,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const usersList = [];
+const usersList = ["bobesponja", "bc"];
 const usersTweets = [];
 
 app.post("/sign-up", (req, res) => {
@@ -18,9 +18,19 @@ app.post("/sign-up", (req, res) => {
 app.post("/tweets", (req, res) => {
     const { username, tweet } = req.body;
 
-    const newTweet = { id: usersTweets.length + 1, username }
-    if (true) { }
+    const isLogged = usersList.find(user => user.username === username);
+    if (!isLogged) {
+        return res.status(401).send("UNAUTHORIZED");
+    }
+
+    const newTweet = { id: usersTweets.length + 1, username, tweet };
+    usersTweets.push(newTweet);
+    res.status(201).send("OK");
 });
+
+
+
+
 
 app.get("/", (req, res) => {
     const tryOut = { trial: "first", time: 1 };
