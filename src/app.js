@@ -8,11 +8,18 @@ app.use(express.json());
 const usersList = [];
 const usersTweets = [];
 
-app.post("/signup", (req, res) => {
+app.post("/sign-up", (req, res) => {
     const { username, avatar } = req.body;
     const newUser = { username, avatar };
     usersList.push(newUser);
     res.status(201).send("OK");
+});
+
+app.post("/tweets", (req, res) => {
+    const { username, tweet } = req.body;
+
+    const newTweet = { id: usersTweets.length + 1, username }
+    if (true) { }
 });
 
 app.get("/", (req, res) => {
