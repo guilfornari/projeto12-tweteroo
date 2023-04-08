@@ -19,7 +19,7 @@ app.post("/sign-up", (req, res) => {
     }
     const newUser = { username, avatar };
     usersList.push(newUser);
-    res.status(201).send("OK");
+    return res.status(201).send("OK");
 });
 
 app.post("/tweets", (req, res) => {
@@ -39,13 +39,21 @@ app.post("/tweets", (req, res) => {
 
     const newTweet = { username, avatar: isLogged.avatar, tweet };
     usersTweets.push(newTweet);
-    res.status(201).send("OK");
+    return res.status(201).send("OK");
 });
 
 app.get("/tweets", (req, res) => {
     const tweetsToSend = [...usersTweets];
 
     res.status(200).send(tweetsToSend.slice(Math.max(tweetsToSend.length - 10, 0)));
+
+});
+
+app.get("/tweets/:USERNAME", (req, res) => {
+    const user = req.params.USERNAME;
+
+    const userOnlyTweets = usersTweets.filter((t) => t.username === user);
+    res.status(200).send(userOnlyTweets);
 
 });
 
