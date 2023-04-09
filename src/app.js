@@ -43,23 +43,9 @@ app.post("/tweets", (req, res) => {
 });
 
 app.get("/tweets", (req, res) => {
-    const page = req.query.page;
     const tweetsToSend = [...usersTweets];
 
-    if (page === undefined) {
-        return res.status(200).send(tweetsToSend.slice(Math.max(tweetsToSend.length - 10, 0)));
-    }
-
-    if (parseInt(page) < 1) {
-        return res.status(400).send("Informe uma página válida!");
-    }
-
-    if (parseInt(page) >= 1) {
-        const y = parseInt(page);
-        const x = tweetsToSend.length
-        return res.status(200).send(tweetsToSend.slice(x - (y * 10), x - (y * 10 - 10)));
-    }
-
+    return res.status(200).send(tweetsToSend.slice(Math.max(tweetsToSend.length - 10, 0)));
 });
 
 app.get("/tweets/:USERNAME", (req, res) => {
@@ -71,4 +57,5 @@ app.get("/tweets/:USERNAME", (req, res) => {
 });
 
 app.listen(5000, () => console.log("Server is running on port 5000, berk!"));
+
 
